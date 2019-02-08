@@ -3,8 +3,8 @@ package http
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"rzd/app/usecase"
-	"rzd/server/http/middleware"
+	"rzd_bot/app/usecase"
+	"rzd_bot/server/http/middleware"
 )
 
 func init() {
@@ -12,7 +12,7 @@ func init() {
 }
 
 // TODO: New middleware for gin logging.
-func NewHandler(app *usecase.App) http.Handler {
+func NewHandler(app *usecase.Usecase) http.Handler {
 	handler := gin.New()
 	handler.Use(Logger(app.LogChan))
 

@@ -1,6 +1,6 @@
 package middleware
 
-import "rzd/app/usecase"
+import "rzd_bot/app/usecase"
 
 type AppLayer struct {
 	App usecase.Usecase

@@ -69,22 +69,19 @@ func main() {
 			false,
 			nil)
 		go server.Serve(trainsRequest, trainsResponse)
-		time.Sleep(20 * time.Second)
-		msg := rabbitmq.MessageRabbitMQ{
-			ID: 1,
-			Event: "Save_one_train",
-			Data: Answer{
-				TrainID: "313030d0add0a95fd09cd09ed0a1d09ad092d09020d0afd0a05fd092d09bd090d094d098d092d09ed0a1d0a25f30312e30322e323031395f30312e30322e32303139d41d8cd98f00b204e9800998ecf8427e",
-				MainRoute: "МОСКВА ЯР - МОСКВА ЯР",
-				Segment: "МОСКВА ЯРОСЛАВСКАЯ (ЯРОСЛАВСКИЙ ВОКЗАЛ) - ЯРОСЛАВЛЬ (ЯРОСЛАВЛЬ-МОСКОВСКИЙ)",
-				StartDate: "25.01.2019_00:35",
-			},
-		}
-		time.Sleep(time.Second)
-		data, _ := json.Marshal(msg)
-		err := trainsResponse.Send(data)
-		if err != nil {
-			logs <- fmt.Sprintf("Main: Error in test send - %s", err.Error())
+		for i:= 0; i < 10; i++ {
+		time.Sleep(5 * time.Second)
+			msg := rabbitmq.MessageRabbitMQ{
+				ID: i,
+				Event: "users_count",
+				Data: nil,
+			}
+			time.Sleep(time.Second)
+			data, _ := json.Marshal(msg)
+			err := trainsResponse.Send(data)
+			if err != nil {
+				logs <- fmt.Sprintf("Main: Error in test send - %s", err.Error())
+			}
 		}
 	}
 	time.Sleep(5 * time.Minute)
